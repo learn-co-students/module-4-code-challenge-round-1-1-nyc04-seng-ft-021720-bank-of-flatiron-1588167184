@@ -10,12 +10,14 @@ const TransactionsList = (props) => {
   let renderTransactions = filteredTransactions.map(transaction => {
     const { id, date, description, category, amount } = transaction
       return (
-        <Transaction 
+        <Transaction
+          id={id} 
           key={id}
           date={date}
           description={description}
           category={category}
           amount={amount}
+          handleDelete={props.handleDelete}
         />
       )
   })
@@ -37,7 +39,9 @@ const TransactionsList = (props) => {
             <h3 className="ui center aligned header">Amount</h3>
           </th>
         </tr>
-        {renderTransactions}
+        {
+          renderTransactions
+        }
       </tbody>
     </table>
   );

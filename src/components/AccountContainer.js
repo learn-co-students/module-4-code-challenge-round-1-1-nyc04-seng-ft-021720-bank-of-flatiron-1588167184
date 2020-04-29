@@ -1,8 +1,16 @@
+// ************* CORE DELIVERABLES ******************** //
+
 // See a table of the transactions - COMPLETE
 
 // Fill out and submit the form to add a new transaction. This should add a the new transaction to the table as well as post the new transaction to the backend API for persistence - COMPLETE
 
 // Filter transactions by typing into the search bar. Only transactions with a description matching the search term should be shown in the transactions table - COMPLETE
+
+// ************* ADVANCED DELIVERABLES ******************** //
+
+// Sort transactions alphabetically by category or description
+
+// Delete a transaction which will remove it from the table and delete it from the backend - COMPLETE
 
 import React, { Component } from "react";
 import TransactionsList from "./TransactionsList";
@@ -36,7 +44,6 @@ class AccountContainer extends Component {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data)
         this.setState({ transactions: [data,...this.state.transactions] })
       });
   }
@@ -53,6 +60,36 @@ class AccountContainer extends Component {
     })
   }
 
+  handleDelete = (id) => {
+    fetch(API + "/" + id, {
+      method: "DELETE"
+    })
+    .then(r => r.json())
+    .then(() => {
+      const newTransactions = this.state.transactions.filter(transaction => {
+        return id !== transaction.id
+      })
+      this.setState({
+        transactions: newTransactions
+      })
+    })
+  }
+
+  handleDeletePlaneteer = id => {
+    fetch(API + '/' + id, {
+      method: "DELETE"
+    })
+    .then(r => r.json())
+    .then(() => {
+      const newPlaneteers = this.state.planeteers.filter(planeteer => {
+        return id !== planeteer.id
+      })
+      this.setState({
+        planeteers: newPlaneteers
+      })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -62,7 +99,11 @@ class AccountContainer extends Component {
           onChange={this.handleChange} 
 
         />
-        <TransactionsList transactions={this.state.transactions} searchTerm={this.state.searchTerm} />
+        <TransactionsList 
+          transactions={this.state.transactions} 
+          searchTerm={this.state.searchTerm} 
+          handleDelete={this.handleDelete}
+        />
       </div>
     );
   }
