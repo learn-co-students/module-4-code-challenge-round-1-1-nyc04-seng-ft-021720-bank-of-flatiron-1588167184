@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-const formatDate = (date) => {
-  let d = new Date(date),
+const formatDate = () => {
+  let d = new Date(),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
@@ -15,7 +15,7 @@ const formatDate = (date) => {
 }
 
 const initialState = {
-  date: formatDate(new Date()),
+  date: formatDate(),
   description: "",
   category: "",
   amount: ""
