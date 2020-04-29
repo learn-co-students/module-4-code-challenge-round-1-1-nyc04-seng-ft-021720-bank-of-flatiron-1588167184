@@ -91,10 +91,10 @@ addTransaction = (transaction) => {
 
   render() {
     const filteredTransactions = this.filteredTransactions()
-    const sortedTransactions = this.getSortedResults(filteredTransactions)
+    // const sortedTransactions = this.getSortedResults(filteredTransactions)
     return (
       <div>
-        {console.log(sortedTransactions)}
+        {/* {console.log(sortedTransactions)} */}
         <Search searchTerm={this.state.searchTerm} handleSearchUpdate={this.handleSearchUpdate} 
         toggleSortByDescription={this.toggleSortByDescription} toggleSortByCategory={this.toggleSortByCategory}/>
         <AddTransactionForm addTransaction={this.addTransaction}/>
