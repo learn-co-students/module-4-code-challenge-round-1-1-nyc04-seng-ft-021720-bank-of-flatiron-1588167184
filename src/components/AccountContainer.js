@@ -26,8 +26,8 @@ class AccountContainer extends Component {
       category: category.value, 
       amount: parseFloat(amount.value), 
     }
-    // debugger;
     this.addNewTransaction(newTransactionObject);
+    event.target.reset(); // clear the form
   }
 
   addNewTransaction(newTransaction) {

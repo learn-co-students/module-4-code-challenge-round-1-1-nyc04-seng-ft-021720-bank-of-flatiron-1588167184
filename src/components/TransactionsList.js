@@ -8,6 +8,8 @@ class TransactionsList extends React.Component {
     transactions: [],
     transactionsLoaded: false,
     transactionAddedWithId: null,
+    sortByDescription: null,
+    sortByCategory: null,
   }
 
   componentDidMount() {
@@ -44,8 +46,32 @@ class TransactionsList extends React.Component {
       })
   }
 
+  sortedTransactions() {
+    return [...this.state.transactions].sort((txA, txB) => {
+      if (this.state.sortByDescription) {
+        if (txA.description.toLowerCase() > txB.description.toLowerCase()) {
+          return 1 * this.state.sortByDescription;
+        } else if (txA.description.toLowerCase() < txB.description.toLowerCase()) {
+          return -1 * this.state.sortByDescription;
+        } else {
+          return 0;
+        }
+      } else if (this.state.sortByCategory) {
+        if (txA.category.toLowerCase() > txB.category.toLowerCase()) {
+          return 1 * this.state.sortByCategory;
+        } else if (txA.category.toLowerCase() < txB.category.toLowerCase()) {
+          return -1 * this.state.sortByCategory;
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+    });
+  }
+
   filteredTransactions() {
-    return this.state.transactions.filter(transaction => {
+    return this.sortedTransactions().filter(transaction => {
       return transaction.description.toLowerCase().includes(this.props.searchString.toLowerCase());
     });
   }
@@ -53,6 +79,20 @@ class TransactionsList extends React.Component {
   generateTransactionComponents() {
     return this.filteredTransactions().map(transaction => {
       return <Transaction key={transaction.id} transaction={transaction} />
+    });
+  }
+
+  toggleSortByDescription = () => {
+    this.setState({
+      sortByDescription: 1,
+      sortByCategory: null,
+    });
+  }
+
+  toggleSortByCategory = () => {
+    this.setState({
+      sortByDescription: null,
+      sortByCategory: 1,
     });
   }
 
@@ -66,11 +106,11 @@ class TransactionsList extends React.Component {
             <th>
               <h3 className="ui center aligned header">Date</h3>
             </th>
-            <th>
-              <h3 className="ui center aligned header">Description</h3>
+            <th className='clickable' onClick={this.toggleSortByDescription}>
+              <h3 className="ui center aligned header">Description (click to sort)</h3>
             </th>
-            <th>
-              <h3 className="ui center aligned header">Category</h3>
+            <th className='clickable' onClick={this.toggleSortByCategory}>
+              <h3 className="ui center aligned header">Category (click to sort)</h3>
             </th>
             <th>
               <h3 className="ui center aligned header">Amount</h3>

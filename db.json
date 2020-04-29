@@ -83,6 +83,20 @@
       "description": "Venmo, Pay Roommate for Rent",
       "category": "Housing",
       "amount": -975
+    },
+    {
+      "date": "2020-04-29",
+      "description": "Cheeseburger",
+      "category": "Food",
+      "amount": 13.95,
+      "id": 13
+    },
+    {
+      "date": "2020-04-22",
+      "description": "32r4sdaf",
+      "category": "fdsa",
+      "amount": 78,
+      "id": 14
     }
   ]
 }
