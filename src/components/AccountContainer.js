@@ -8,8 +8,11 @@ class AccountContainer extends Component {
     return (
       <div>
         <Search />
-        <AddTransactionForm />
-        <TransactionsList />
+        <AddTransactionForm
+        addOneTransaction={this.props.addOneTransaction} />
+        <TransactionsList 
+        arrayOfTransations={this.props.arrayOfTransations}
+        />
       </div>
     );
   }
