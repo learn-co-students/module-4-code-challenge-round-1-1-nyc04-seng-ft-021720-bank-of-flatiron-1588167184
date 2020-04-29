@@ -83,6 +83,20 @@
       "description": "Venmo, Pay Roommate for Rent",
       "category": "Housing",
       "amount": -975
+    },
+    {
+      "amount": "1000000000",
+      "description": "won the lottery",
+      "date": "2020-04-09",
+      "category": "yaaaaayyyyyy",
+      "id": 13
+    },
+    {
+      "amount": "-10000000000",
+      "description": "finally bought a million tacos",
+      "date": "2020-04-22",
+      "category": "Food",
+      "id": 14
     }
   ]
 }
