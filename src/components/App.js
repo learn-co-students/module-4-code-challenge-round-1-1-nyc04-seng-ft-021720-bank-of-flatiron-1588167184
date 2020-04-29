@@ -5,7 +5,8 @@ import "../stylesheets/App.css";
 class App extends Component {
 
   state = {
-    transations: []
+    transations: [],
+    searchTerm: ""
   }
 
 componentDidMount () {
@@ -16,7 +17,20 @@ componentDidMount () {
   })
 }
 
-addOneTransation = (newTransaction) => {
+changeSearchTerm = (newTerm) => {
+  this.setState({
+    searchTerm: newTerm
+  })
+}
+
+functionFilterArray = () => {
+  let filterOfArray = this.state.transations.filter((transactionPojo) => {
+    return transactionPojo.description.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+  })
+  return filterOfArray
+}
+
+addOneTransaction = (newTransaction) => {
   fetch("http://localhost:6001/transactions", {
   method: 'POST',
   headers: {
@@ -32,7 +46,8 @@ addOneTransation = (newTransaction) => {
       transations: newInput
     })
   })
-  
+}
+
   render() {
     // console.log(this.state.transations)
     return (
@@ -41,8 +56,11 @@ addOneTransation = (newTransaction) => {
           <h2>The Royal Bank of Flatiron</h2>
         </div>
         <AccountContainer 
-          arrayOfTransations={this.state.transations}
-          addOneTransation={this.addOneTransation}
+          // arrayOfTransations={this.state.transactions}
+          arrayOfTransations={this.functionFilterArray()}
+          addOneTransaction={this.addOneTransaction}
+          searchTerm={this.state.searchTerm}
+          changeSearchTerm={this.changeSearchTerm}
         />
       </div>
     );

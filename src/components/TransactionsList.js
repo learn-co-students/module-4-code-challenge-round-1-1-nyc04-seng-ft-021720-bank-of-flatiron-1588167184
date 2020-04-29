@@ -7,7 +7,6 @@ console.log(props)
       return <Transaction
         key={oneTransaction.id}
         transaction={oneTransaction}
-        
         />
   })
 

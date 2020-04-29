@@ -15,8 +15,8 @@ handleNewInputs = (e) => {
   })
 }
 
-  handleSubmit = (e) => {
-    e.preventDefault
+handleSubmit = (e) => {
+    e.preventDefault()
     this.props.addOneTransaction(this.state)
   }
 
@@ -42,9 +42,10 @@ handleNewInputs = (e) => {
             <input 
               type="text" 
               name="category" 
-              placeholder="Category" />
+              placeholder="Category"
               value={this.state.category}
               onChange={this.handleNewInputs}
+              />
             <input
               type="number"
               name="amount"
