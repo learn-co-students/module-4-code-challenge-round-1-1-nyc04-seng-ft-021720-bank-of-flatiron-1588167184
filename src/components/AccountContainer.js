@@ -3,6 +3,7 @@ import TransactionsList from "./TransactionsList";
 import Search from "./Search";
 import AddTransactionForm from "./AddTransactionForm";
 
+const BASE_URL = 'http://localhost:6001/transactions/'
 class AccountContainer extends Component {
 
   state = {
@@ -19,7 +20,7 @@ class AccountContainer extends Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:6001/transactions')
+    fetch(BASE_URL)
     .then(r => r.json())
     .then(transactions => this.setState({
       transactions:transactions
@@ -36,13 +37,14 @@ class AccountContainer extends Component {
 
     if(this.state.category){
       sortedTransactions.sort((t1, t2) => {
-        return (t1.category < t2.category ? -1 : (t1.category > t2.category ? 1 : 0));
+        return (t1.category).localeCompare(t2.category)
       })
     }
+    
 
     if(this.state.description){
       sortedTransactions.sort((t1, t2) => {
-        return (t1.description < t2.description ? -1 : (t1.description > t2.description ? 1 : 0));
+        return (t1.description).localeCompare(t2.description)
       })
     }
     
@@ -54,7 +56,7 @@ class AccountContainer extends Component {
   onSubmit = (e) =>{
     e.preventDefault()
     let {date, description, category, amount} = this.state.form
-    fetch('http://localhost:6001/transactions', {
+    fetch(BASE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -85,7 +87,8 @@ class AccountContainer extends Component {
 
   sortClickCategory = (e) =>{
     this.setState((prevState) => ({
-      category: !prevState.category
+      category: !prevState.category,
+      description: false
     }))
   }
 
@@ -93,6 +96,22 @@ class AccountContainer extends Component {
     this.setState((prevState) => ({
       description: !prevState.description
     }))
+  }
+
+  onClickDelete = (transactionObj) =>{
+    let transactionID = transactionObj.id 
+
+    fetch(BASE_URL+transactionID, {
+      method: 'delete'
+    })
+    .then(response => response.json())
+    .then(obj => {
+      let oldState = [...this.state.transactions]
+      let newState = oldState.filter(transactions => transactions !== transactionObj)
+      this.setState({
+        transactions: newState
+      })
+    })
   }
 
 
@@ -103,7 +122,7 @@ class AccountContainer extends Component {
         <AddTransactionForm submit={this.onSubmit} values ={this.state.form} 
         onChange={this.formOnChange} sortCategory={this.sortClickCategory}
         sortDescription={this.sortClickDescription}/>
-        <TransactionsList transactions = {this.state.transactions} test ={this.sortTransactions()} />
+        <TransactionsList transactions = {this.state.transactions} test ={this.sortTransactions()} delete={this.onClickDelete}/>
       </div>
     );
   }
