@@ -5,7 +5,7 @@ const TransactionsList = (props) => {
 
   const renderTransaction = () => {
     return props.transactions.map(transaction => {
-      return <Transaction key={transaction.id} transaction={transaction} />
+      return <Transaction key={transaction.id} transaction={transaction} handleDelete={props.handleDelete}/>
     })
   }
 
