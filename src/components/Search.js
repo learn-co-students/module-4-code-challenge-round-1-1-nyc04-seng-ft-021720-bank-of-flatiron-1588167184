@@ -5,13 +5,22 @@ const Search = (props) => {
     <div className="ui large fluid icon input">
       <input
         type="text"
-        // value={props.searchTerm}
         placeholder={"Search your Recent Transactions"}
         onChange={(event) => {
           props.handleSearchUpdate(event.target.value)
         }}
       />
       <i className="circular search link icon"></i>
+      <label> Sort Alphabetically by Category</label>
+      <input
+      type="checkbox"
+      onChange={props.toggleSortByCategory} 
+      />
+      <label> Sort Alphabetically by Description</label>
+      <input
+      type="checkbox"
+      onChange={props.toggleSortByDescription} 
+      />
     </div>
   );
 };

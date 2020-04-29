@@ -6,7 +6,9 @@ import AddTransactionForm from "./AddTransactionForm";
 class AccountContainer extends Component {
   state = {
     transactions: [],
-    searchTerm: ""
+    searchTerm: "",
+    sortByCategory: false,
+    sortByDescription: false
   }
 
   componentDidMount = () => {
@@ -52,11 +54,49 @@ addTransaction = (transaction) => {
     })
   }
 
+  toggleSortByDescription = () => {
+    this.setState(prevState => ({
+      sortByDescription: !prevState.sortByDescription
+    }))
+  }
+
+  toggleSortByCategory = () => {
+    this.setState(prevState => ({
+      sortByCategory: !prevState.sortByCategory
+    }))
+  }
+
+//   getSortedResults = (transactions) => {
+//     let filteredTransactions = [...transactions]
+//     // if (this.state.sortByCategory && this.state.sortByDescription){
+//     //   return filteredTransactions = filteredTransactions.sort((a, b) => {
+//     //     return a.category.localeCompare(b.category)
+//     //   })
+//       // return filteredTransactions.sort((a, b) => {
+//       //   return (a.description.localeCompare(b.description))
+//       // })
+//     // } else 
+//     if (this.state.sortByDescription){
+//       filteredTransactions.sort((a, b) => {
+//         return (a.description.localeCompare(b.description))
+//       })
+//       return filteredTransactions
+//     } else if (this.state.sortByCategory){
+//       filteredTransactions = filteredTransactions.sort((a, b) => {
+//         return a.category.localeCompare(b.category)
+//       })
+//     return filteredTransactions
+//   }
+// }
+
   render() {
     const filteredTransactions = this.filteredTransactions()
+    const sortedTransactions = this.getSortedResults(filteredTransactions)
     return (
       <div>
-        <Search searchTerm={this.state.searchTerm} handleSearchUpdate={this.handleSearchUpdate}/>
+        {console.log(sortedTransactions)}
+        <Search searchTerm={this.state.searchTerm} handleSearchUpdate={this.handleSearchUpdate} 
+        toggleSortByDescription={this.toggleSortByDescription} toggleSortByCategory={this.toggleSortByCategory}/>
         <AddTransactionForm addTransaction={this.addTransaction}/>
         <TransactionsList transactions={filteredTransactions}/>
       </div>
