@@ -32,3 +32,11 @@ body {
 .clickable:hover{
   text-decoration: underline;
 }
+
+.delete-button {
+  cursor: pointer;
+}
+.delete-button:hover{
+  background-color: rgb(150, 0, 0);
+  color: rgb(245, 245, 245);
+}

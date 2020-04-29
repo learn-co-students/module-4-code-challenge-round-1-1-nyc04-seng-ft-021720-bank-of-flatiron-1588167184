@@ -78,7 +78,7 @@ class TransactionsList extends React.Component {
 
   generateTransactionComponents() {
     return this.filteredTransactions().map(transaction => {
-      return <Transaction key={transaction.id} transaction={transaction} />
+      return <Transaction key={transaction.id} transaction={transaction} deleteTransaction={this.deleteTransaction} />
     });
   }
 
@@ -94,6 +94,21 @@ class TransactionsList extends React.Component {
       sortByDescription: null,
       sortByCategory: 1,
     });
+  }
+
+  deleteTransaction = (transactionId) => {
+    console.log('deleting tx', transactionId);
+    fetch(`${apiEndpoints.transactions}/${transactionId}`, {
+      method: 'DELETE'
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('deleted.')
+          this.fetchAllTransactions();
+        } else {
+          alert('attempt to delete transaction '+transactionId+' returned '+response.status)
+        }
+      })
   }
 
   render() {
@@ -114,6 +129,9 @@ class TransactionsList extends React.Component {
             </th>
             <th>
               <h3 className="ui center aligned header">Amount</h3>
+            </th>
+            <th>
+              {/* delete transaction column */}
             </th>
           </tr>
           {
