@@ -32,6 +32,12 @@ class AddTransactionForm extends Component {
             Add Transaction
           </button>
         </form>
+        <button className="ui button" type="button" onClick={this.props.sortCategory}>
+            Categorically
+          </button>
+          <button className="ui button" type="button" onClick={this.props.sortDescription}>
+            Description
+          </button>
       </div>
     );
   }
