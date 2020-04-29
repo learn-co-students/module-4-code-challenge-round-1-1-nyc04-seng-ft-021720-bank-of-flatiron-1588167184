@@ -111,6 +111,13 @@
       "description": "1",
       "category": "2",
       "amount": "3"
+    },
+    {
+      "id": 17,
+      "date": "2019-12-19",
+      "description": "Sandwiches",
+      "category": "3",
+      "amount": "99999"
     }
   ]
 }

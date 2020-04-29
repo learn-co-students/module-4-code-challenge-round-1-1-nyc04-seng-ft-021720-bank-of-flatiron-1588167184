@@ -17,7 +17,6 @@ class AccountContainer extends Component {
   }
 
   handleAddTransaction = (e) => {
-    debugger
     e.preventDefault()
     let transactionObj = {
       id: this.state.transactions.length + 1,
