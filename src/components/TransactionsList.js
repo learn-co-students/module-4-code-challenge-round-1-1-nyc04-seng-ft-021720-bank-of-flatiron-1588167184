@@ -1,7 +1,27 @@
 import React from "react";
 import Transaction from "./Transaction";
 
-const TransactionsList = () => {
+const TransactionsList = (props) => {
+  
+  let filteredTransactions = [...props.transactions]
+    .filter(transaction => transaction.description.toLowerCase()
+    .includes(props.searchTerm.toLowerCase()))
+
+  let renderTransactions = filteredTransactions.map(transaction => {
+    const { id, date, description, category, amount } = transaction
+      return (
+        <Transaction
+          id={id} 
+          key={id}
+          date={date}
+          description={description}
+          category={category}
+          amount={amount}
+          handleDelete={props.handleDelete}
+        />
+      )
+  })
+  
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -19,7 +39,9 @@ const TransactionsList = () => {
             <h3 className="ui center aligned header">Amount</h3>
           </th>
         </tr>
-        {/* render Transactions here */}
+        {
+          renderTransactions
+        }
       </tbody>
     </table>
   );
