@@ -83,6 +83,13 @@
       "description": "Venmo, Pay Roommate for Rent",
       "category": "Housing",
       "amount": -975
+    },
+    {
+      "date": "2020-04-29",
+      "description": "For Gayle's Art Project",
+      "category": "Charity",
+      "amount": "400",
+      "id": 13
     }
   ]
 }
